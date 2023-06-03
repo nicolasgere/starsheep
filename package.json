@@ -1,0 +1,41 @@
+{
+  "name": "turborepo-base",
+  "version": "0.1.1",
+  "private": true,
+  "author": "retconned <retcnned@gmail.com>",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "pnpm with-env turbo run build --cache-dir=\"./.turbo_cache\"",
+    "dev": "pnpm with-env turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "deploy": "turbo run deploy",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "lint:staged": "lint-staged",
+    "prisma:generate": "pnpm with-env --filter @retconned/prisma-orm db:generate",
+    "prisma:push": "pnpm with-env turbo db:generate db:push",
+    "drizzle:push": "pnpm with-env turbo --filter @retconned/drizzle db:push",
+    "check:prettier:staged": "pretty-quick --staged",
+    "check:commit:msg:staged": "commitlint --edit \"$1\"",
+    "with-env": "dotenv -e .env --"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.4.2",
+    "@retconned/config": "workspace:*",
+    "@retconned/eslint-config-custom": "workspace:*",
+    "@types/node": "^17.0.12",
+    "dotenv-cli": "^7.1.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.0",
+    "pretty-quick": "^3.1.3",
+    "turbo": "^1.9.3"
+  },
+  "engines": {
+    "node": ">=18.14.0"
+  },
+  "packageManager": "pnpm@7.28.0"
+}
